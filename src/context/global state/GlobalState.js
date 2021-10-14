@@ -67,12 +67,13 @@ export const GlobalContext = createContext(initialState);
 // create provider component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  const uri = 'https://trillsound-api.herokuapp.com/api';
 
   // actions
   const getSongs = async () => {
     setParentLoading(true);
     try {
-      const penRes = await fetch('/api/songs', {
+      const penRes = await fetch(`${uri}/songs`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ export const GlobalProvider = ({ children }) => {
   const getArtists = async () => {
     setParentLoading(true);
     try {
-      const penRes = await fetch('/api/bios', {
+      const penRes = await fetch(`${uri}/bios`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -191,7 +192,7 @@ export const GlobalProvider = ({ children }) => {
   const getAdmins = async () => {
     setParentLoading(true);
     try {
-      const penRes = await fetch('/api/admins', {
+      const penRes = await fetch(`${uri}/admins`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -282,7 +283,7 @@ export const GlobalProvider = ({ children }) => {
   const updateStreams = async (id) => {
     setParentLoading(true);
     try {
-      await fetch(`/api/streams/update/${id}`, {
+      await fetch(`${uri}/streams/update/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -298,7 +299,7 @@ export const GlobalProvider = ({ children }) => {
   const updateDownloads = async (id) => {
     setParentLoading(true);
     try {
-      await fetch(`/api/downloads/update/${id}`, {
+      await fetch(`${uri}/downloads/update/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -314,7 +315,7 @@ export const GlobalProvider = ({ children }) => {
   const updateArtistPageViews = async (id) => {
     setParentLoading(true);
     try {
-      await fetch(`/api/artists/update/${id}`, {
+      await fetch(`${uri}/artists/update/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -449,7 +450,7 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     const data = { username, password };
     try {
-      const penRes = await fetch('/api/admin/login', {
+      const penRes = await fetch(`${uri}/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -498,7 +499,7 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     const data = { username, password, zone, socialHandle, adminAuth };
     try {
-      const penRes = await fetch('/api/admin/register', {
+      const penRes = await fetch(`${uri}/admin/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -530,7 +531,7 @@ export const GlobalProvider = ({ children }) => {
   const getSignedInAdmin = async (token) => {
     setParentLoading(true);
     try {
-      const penRes = await fetch('/api/admin', {
+      const penRes = await fetch(`${uri}/admin`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -571,7 +572,7 @@ export const GlobalProvider = ({ children }) => {
   const changePassword = async (oldPassword, newPassword) => {
     setLoading(true);
     try {
-      const pendingResponse = await fetch(`/api/admin/change-password`, {
+      const pendingResponse = await fetch(`${uri}/admin/change-password`, {
         method: 'PUT',
         body: JSON.stringify({ oldPassword, newPassword }),
         headers: {
@@ -598,7 +599,7 @@ export const GlobalProvider = ({ children }) => {
   const uploadSong = async (song) => {
     setLoading(true);
     try {
-      const penRes = await fetch('/api/admin/songs/new', {
+      const penRes = await fetch(`${uri}/admin/songs/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -631,7 +632,7 @@ export const GlobalProvider = ({ children }) => {
   const updateSong = async (id, song) => {
     setLoading(true);
     try {
-      const penRes = await fetch(`/api/admin/songs/update/${id}`, {
+      const penRes = await fetch(`${uri}/admin/songs/update/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -664,7 +665,7 @@ export const GlobalProvider = ({ children }) => {
   const deleteSong = async (id) => {
     setParentLoading(true);
     try {
-      const penRes = await fetch(`/api/admin/songs/delete/${id}`, {
+      const penRes = await fetch(`${uri}/admin/songs/delete/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -696,7 +697,7 @@ export const GlobalProvider = ({ children }) => {
   const uploadArtist = async (artist) => {
     setLoading(true);
     try {
-      const penRes = await fetch('/api/admin/bios/new', {
+      const penRes = await fetch(`${uri}/admin/bios/new`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -729,7 +730,7 @@ export const GlobalProvider = ({ children }) => {
   const updateArtist = async (artist) => {
     setLoading(true);
     try {
-      const penRes = await fetch(`/api/admin/bios/update`, {
+      const penRes = await fetch(`${uri}/admin/bios/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -762,7 +763,7 @@ export const GlobalProvider = ({ children }) => {
   const deleteArtist = async (name) => {
     setParentLoading(true);
     try {
-      const penRes = await fetch(`/api/admin/bios/delete/${name}`, {
+      const penRes = await fetch(`${uri}/admin/bios/delete/${name}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

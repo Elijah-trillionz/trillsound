@@ -7,7 +7,7 @@ export const SearchResults = ({ searchResults, searchQuery, src }) => {
   }, []);
 
   const searchResultsElement = searchResults.map((searchResult, index) => {
-    if (!searchResult) return;
+    if (!searchResult) return null;
     return (
       <li className='song-container' key={index}>
         <div className='post-thumbnail'>

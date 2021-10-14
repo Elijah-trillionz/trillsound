@@ -331,7 +331,6 @@ export const AddArtist = ({ editing, id }) => {
           </div>
           <input
             type='submit'
-            value='Submit Biography'
             id='submit-bio'
             value={
               loading
