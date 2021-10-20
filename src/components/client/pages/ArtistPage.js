@@ -18,7 +18,9 @@ export const ArtistPage = () => {
         <BottomSlider />
       </main>
       <div className='body-container mobile-only'></div>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 };

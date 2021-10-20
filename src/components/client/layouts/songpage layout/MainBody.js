@@ -37,6 +37,9 @@ export const MainBody = () => {
   const [songsFromArtist, setSongsFromArtist] = useState([]);
   const [admin, setAdmin] = useState({});
   const [artistId, setArtistId] = useState('');
+  const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     getAdmins();
@@ -201,6 +204,80 @@ export const MainBody = () => {
     </div>
   );
 
+  const audio = document.querySelector(`audio`);
+  const togglePlay = () => {
+    if (!clicked) {
+      audio.src = song.downloadLink;
+      updateStreams(song.id);
+      setClicked(true);
+    }
+
+    if (playing) {
+      audio.pause();
+      setLoading(false);
+      setPlaying(false);
+    } else {
+      setLoading(true);
+      audio.play();
+    }
+  };
+
+  const songPlaying = (e) => {
+    setPlaying(true);
+    setLoading(false);
+
+    const durationMin = Math.floor(audio.duration / 60);
+    const durationSec = Math.floor(audio.duration % 60);
+
+    let formattedDuration = `${durationMin}:${durationSec}`;
+    if (durationMin < 10 && durationSec < 10) {
+      formattedDuration = `0${durationMin}:0${durationSec}`;
+    } else if (durationMin < 10 && durationSec >= 10) {
+      formattedDuration = `0${durationMin}:${durationSec}`;
+    } else {
+      formattedDuration = `${durationMin}:0${durationSec}`;
+    }
+
+    document.querySelector('.total-time').innerText = formattedDuration;
+  };
+
+  const updateProgress = (e) => {
+    const { currentTime, duration } = e.target;
+
+    const currentMin = Math.floor(currentTime / 60);
+    const currentSec = Math.floor(currentTime % 60);
+
+    let formattedTime = `${currentMin}:${currentSec}`;
+    if (currentMin < 10 && currentSec < 10) {
+      formattedTime = `0${currentMin}:0${currentSec}`;
+    } else if (currentMin < 10 && currentSec >= 10) {
+      formattedTime = `0${currentMin}:${currentSec}`;
+    } else {
+      formattedTime = `${currentMin}:0${currentSec}`;
+    }
+
+    document.querySelector('.current-time').innerText = formattedTime;
+
+    // update progress
+    const progressPercent = (currentTime / duration) * 100;
+    document.querySelector(
+      '.progress-overlay'
+    ).style.width = `${progressPercent}%`;
+  };
+
+  const setProgress = (e) => {
+    if (!playing) togglePlay();
+
+    if (!isNaN(audio.duration)) {
+      const width = e.target.clientWidth;
+      const clickX = e.nativeEvent.offsetX;
+
+      const duration = audio.duration;
+
+      audio.currentTime = (clickX / width) * duration;
+    }
+  };
+
   return (
     <div className='main-container'>
       {song && (
@@ -254,13 +331,33 @@ export const MainBody = () => {
                   </div>
 
                   <div className='song-action'>
-                    <div
-                      className='play'
-                      onClick={() => updateStreams(song.id)}
-                    >
-                      <audio controls={true} title='Listen Online'>
-                        <source src={song.downloadLink} />
-                      </audio>
+                    <div className='play'>
+                      <div className='audio-player'>
+                        <div>
+                          <audio
+                            controls={false}
+                            title='Listen Online'
+                            onPlaying={songPlaying}
+                            id={song.id}
+                            src=''
+                            onTimeUpdate={updateProgress}
+                          ></audio>
+                          <button onClick={togglePlay}>
+                            <i
+                              className={`fas fa-${
+                                playing ? 'pause' : loading ? 'spinner' : 'play'
+                              }`}
+                            ></i>
+                          </button>
+                          <p className='current-time'>00:00</p>
+                        </div>
+                        <div>
+                          <div className='progress' onClick={setProgress}>
+                            <div className='progress-overlay'></div>
+                          </div>
+                          <p className='total-time'>00:00</p>
+                        </div>
+                      </div>
                     </div>
                     <div
                       className='download'

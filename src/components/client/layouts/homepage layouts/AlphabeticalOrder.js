@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SideBar } from '../SideBar';
 import { GlobalContext } from '../../../../context/global state/GlobalState';
 import { Header } from '../Header';
@@ -8,12 +8,11 @@ import { TopSlider } from '../TopSlider';
 import { BottomSlider } from '../BottomSlider';
 import { SearchResults } from '../SearchResults';
 import { Helmet } from 'react-helmet-async';
+import { SongElement } from '../SongElement';
 
 export const AlphabeticalOrder = () => {
   const {
     songs,
-    updateStreams,
-    updateDownloads,
     songTitles,
     currentPaginationIndex,
     newTotalPaginationIndex,
@@ -23,8 +22,6 @@ export const AlphabeticalOrder = () => {
     searchQuery,
     searchResults,
   } = useContext(GlobalContext);
-
-  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     songs && sortAlphabetically();
@@ -66,97 +63,9 @@ export const AlphabeticalOrder = () => {
     }
   };
 
-  const toggleSongControl = (e, src) => {
-    const audio = e.target.previousElementSibling;
-    const icon = e.target;
-
-    audio.src = src;
-
-    if (!isPlaying) {
-      audio.play();
-      setIsPlaying(true);
-      icon.classList.remove('fa-play');
-      icon.classList.add('fa-spinner');
-    } else {
-      audio.pause();
-      setIsPlaying(false);
-      icon.classList.add('fa-play');
-      icon.classList.remove('fa-pause');
-      icon.classList.remove('fa-spinner');
-      undoDisabledBtns();
-    }
-  };
-
-  const disableOtherBtns = (id) => {
-    const allIcons = document.querySelectorAll('.song-control');
-
-    allIcons.forEach((icon) => {
-      if (icon.id !== id) {
-        icon.classList.add('disabled');
-      }
-    });
-  };
-
-  const undoDisabledBtns = () => {
-    const allIcons = document.querySelectorAll('.song-control');
-
-    allIcons.forEach((icon) => {
-      icon.classList.remove('disabled');
-    });
-  };
-
-  const songPlaying = (e) => {
-    const icon = e.target.nextElementSibling;
-
-    icon.classList.remove('fa-spinner');
-    icon.classList.add('fa-pause');
-    icon.classList.remove('fa-play');
-    disableOtherBtns(e.target.id);
-  };
-
   const songElements = newSongIndex.map((songIndex) => {
-    const { title, artist, id, thumbnail, downloadLink } = songs[songIndex];
-    return (
-      <li key={id} className='song-container'>
-        <div className='post-thumbnail'>
-          <img src={thumbnail} alt={`${title} img`} className='img'></img>
-        </div>
-        <div className='song-title'>
-          <h3>
-            <a href={`/song?song_id=${id}&artist=${artist}`}>
-              {title} - {artist}
-            </a>
-          </h3>
-        </div>
-        <div className='song-info'>
-          <div
-            className='play-song'
-            onClick={() => {
-              updateStreams(id);
-            }}
-          >
-            <audio
-              controls={false}
-              title='Listen Online'
-              onPlaying={songPlaying}
-              id={id}
-            >
-              <source src={downloadLink} />
-            </audio>
-            <i
-              className='fas fa-play song-control'
-              id={id}
-              onClick={(e) => toggleSongControl(e, downloadLink)}
-            ></i>
-          </div>
-          <div className='download-song' onClick={() => updateDownloads(id)}>
-            <a href={downloadLink} target='_blank' rel='noopener noreferrer'>
-              <i className='fas fa-download'></i>
-            </a>
-          </div>
-        </div>
-      </li>
-    );
+    const { id } = songs[songIndex];
+    return <SongElement key={id} song={songs[songIndex]} />;
   });
 
   return (

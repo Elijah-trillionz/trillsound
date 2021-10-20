@@ -55,18 +55,6 @@ export const Footer = () => {
             Artists:
           </p>
           <form>
-            {/* <input
-              type='email'
-              name='email'
-              id='email'
-              placeholder='example@gmail.com'
-              value={emailValue}
-              onChange={(e) => setEmailValue(e.target.value)}
-              required
-            />
-            <input type='submit' name='submit' id='submit' />
-            
-            <p>Join 330,000 Others</p> */}
             <a
               href='https://t.me/joinchat/CWf6e_UWnjQzN2Y0'
               target='_blank'
@@ -84,22 +72,26 @@ export const Footer = () => {
             <h3 className='footer-title'>Quick Links</h3>
             <ul>
               <li>
-                <a href='/d'>Contact Us</a>
+                <a href='https://t.me/joinchat/CWf6e_UWnjQzN2Y0'>Contact Us</a>
               </li>
               <li>
-                <a href='/d'>About Us</a>
+                <a href='https://t.me/joinchat/CWf6e_UWnjQzN2Y0'>About Us</a>
               </li>
               <li>
-                <a href='/d'>Join Us</a>
+                <a href='https://twitter.com/elijahtrillionz'>Join Us</a>
               </li>
               <li>
-                <a href='/d'>Support</a>
+                <a href='https://twitter.com/elijahtrillionz'>Support</a>
               </li>
               <li>
-                <a href='/d'>Advertise with Us</a>
+                <a href='https://twitter.com/elijahtrillionz'>
+                  Advertise with Us
+                </a>
               </li>
               <li>
-                <a href='/d'>Promote your Song</a>
+                <a href='https://twitter.com/elijahtrillionz'>
+                  Promote your Song
+                </a>
               </li>
             </ul>
           </div>
@@ -110,16 +102,6 @@ export const Footer = () => {
               Artists:
             </p>
             <form>
-              {/* <input
-                type='email'
-                name='email'
-                id='sub-email'
-                placeholder='example@gmail.com'
-                value={emailValue}
-                onChange={(e) => setEmailValue(e.target.value)}
-                required
-              />
-              <input type='submit' name='submit' id='sub-submit' /> */}
               <a
                 href='https://t.me/joinchat/CWf6e_UWnjQzN2Y0'
                 target='_blank'
@@ -128,7 +110,6 @@ export const Footer = () => {
                 Join Now
                 <i className='fab fa-telegram'></i>
               </a>
-              {/* <p>Join Countless Others</p> */}
             </form>
           </div>
           <div className='right-content'>
@@ -136,7 +117,7 @@ export const Footer = () => {
             <br />
             <div className='social-list'>
               <a
-                href='www.facebook.com/trillsound_media'
+                href='https://www.facebook.com/trillsound_media'
                 target='_blank'
                 rel='noopener noreferrer'
               >
@@ -150,7 +131,7 @@ export const Footer = () => {
                 <i className='fab fa-telegram'></i>
               </a>
               <a
-                href='www.twitter.com/trillsound_media'
+                href='https://www.twitter.com/trillsound_media'
                 target='_blank'
                 rel='noopener noreferrer'
               >

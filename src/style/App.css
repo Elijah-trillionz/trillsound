@@ -1001,12 +1001,67 @@ ul.artist-lists p {
   margin: 40px auto;
   gap: 35px;
 }
-.play audio {
-  display: block;
-  width: 100%;
-  height: 60px;
-  margin: 0 auto;
+.play {
+  background: #fff;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  border-radius: 190px;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  border: 1.5px solid #2196f3;
 }
+.audio-player {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 65px auto;
+  align-items: center;
+  column-gap: 15px;
+  padding: 20px 40px;
+}
+.audio-player > div {
+  display: flex;
+  align-items: center;
+}
+.audio-player button {
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-right: 10px;
+}
+.audio-player button i {
+  color: #2196f3;
+  cursor: pointer;
+  font-size: 14px;
+}
+.progress,
+.progress-overlay {
+  width: 100%;
+  background: #555;
+  height: 3px;
+  transition: 0.3s ease-in-out;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.progress-overlay {
+  width: 0%;
+  background: #2196f3;
+  position: relative;
+}
+.progress-overlay::after {
+  content: ' ';
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2196f3;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+/* .audio-player:hover .progress {
+  background: #2196f3;
+} */
 .download a {
   height: 55px;
   display: flex;
@@ -1027,6 +1082,7 @@ ul.artist-lists p {
   margin: 0 auto;
   z-index: 1;
   cursor: pointer;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 .download a::before {
   content: '';
@@ -1051,21 +1107,23 @@ ul.artist-lists p {
 .telegram-section {
   padding: 15px 10px;
   border: 2px solid #108aee;
-  display: inline-block;
+  display: block;
   margin-bottom: 20px;
   border-radius: 5px;
+  text-align: center;
 }
 .telegram-section h3 {
   padding-bottom: 10px;
   text-align: left;
   font-weight: 900;
+  text-align: center;
 }
 .telegram-section p {
   padding: 5px 0;
   padding-bottom: 15px;
 }
 .telegram-section a {
-  display: block;
+  display: inline-block;
   padding: 11px 20px;
   margin: 5px 0;
   border-radius: 4px;
