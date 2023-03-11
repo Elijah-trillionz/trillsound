@@ -1350,9 +1350,12 @@ ul.artist-lists p {
 }
 .bottom-footer-container p {
   text-align: center;
-  font-size: 21px;
+  font-size: 17px;
   font-family: 'Courier New', Courier, monospace;
   margin-top: 30px;
+}
+.bottom-footer-container a {
+  font-size: 17px;
 }
 /* constants */
 .body-container,

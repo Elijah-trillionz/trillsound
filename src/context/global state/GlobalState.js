@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useReducer } from 'react';
-import AppReducer from '../app reducers/AppReducer';
+import React, { createContext, useEffect, useReducer } from "react";
+import AppReducer from "../app reducers/AppReducer";
 import {
   GET_SONGS,
   GET_ARTISTS,
@@ -29,7 +29,7 @@ import {
   SET_SUCCESS_MESSAGE,
   TRENDING_ARTIST,
   ARTIST_ALPH_ORDER,
-} from '../app reducers/types';
+} from "../app reducers/types";
 
 const initialState = {
   songs: [],
@@ -44,14 +44,14 @@ const initialState = {
   fromLastMonth: [],
   trendingLastMonth: [],
   previewingSong: [],
-  artistId: '',
+  artistId: "",
   artists: [],
   loading: false,
   parentLoading: true,
   currentPaginationIndex: 0,
   newTotalPaginationIndex: 16,
   searchResults: [],
-  searchQuery: '',
+  searchQuery: "",
   previewingArtist: [],
   trendingArtists: [],
   artistTitles: [],
@@ -67,16 +67,16 @@ export const GlobalContext = createContext(initialState);
 // create provider component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  const uri = 'https://trillsound-api.herokuapp.com/api';
+  const uri = "https://trillsound-api.onrender.com/api";
 
   // actions
   const getSongs = async () => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/songs`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -107,7 +107,7 @@ export const GlobalProvider = ({ children }) => {
           });
 
           const sortSongIndexes = songIndexes.map((songIndex) => {
-            return +songIndex.substr(songIndex.indexOf('.') + 1);
+            return +songIndex.substr(songIndex.indexOf(".") + 1);
           });
 
           const songs = [];
@@ -135,9 +135,9 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/bios`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -165,7 +165,7 @@ export const GlobalProvider = ({ children }) => {
           });
 
           const sortArtistPageViews = artistPageViews.map((artistPageView) => {
-            return +artistPageView.substr(artistPageView.indexOf('.') + 1);
+            return +artistPageView.substr(artistPageView.indexOf(".") + 1);
           });
 
           const artists = [];
@@ -193,9 +193,9 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/admins`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -257,7 +257,7 @@ export const GlobalProvider = ({ children }) => {
 
   // paginations
   const goToNextPage = (index) => {
-    document.querySelector('html').scrollTop = 0;
+    document.querySelector("html").scrollTop = 0;
     setLoading();
     // setTimeout(() => {
     dispatch({
@@ -268,7 +268,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const goToPrevPage = (index) => {
-    document.querySelector('html').scrollTop = 0;
+    document.querySelector("html").scrollTop = 0;
     setLoading();
     // setTimeout(() => {
     dispatch({
@@ -278,16 +278,16 @@ export const GlobalProvider = ({ children }) => {
     // }, 1000);
   };
 
-  const adminTag = localStorage.getItem('admin-tag');
+  const adminTag = localStorage.getItem("admin-tag");
 
   const updateStreams = async (id) => {
     setParentLoading(true);
     try {
       await fetch(`${uri}/streams/update/${id}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-tag': adminTag,
+          "Content-Type": "application/json",
+          "admin-tag": adminTag,
         },
       });
     } catch (err) {
@@ -300,10 +300,10 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       await fetch(`${uri}/downloads/update/${id}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-tag': adminTag,
+          "Content-Type": "application/json",
+          "admin-tag": adminTag,
         },
       });
     } catch (err) {
@@ -316,10 +316,10 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       await fetch(`${uri}/artists/update/${id}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-tag': adminTag,
+          "Content-Type": "application/json",
+          "admin-tag": adminTag,
         },
       });
     } catch (err) {
@@ -436,24 +436,24 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const getDataFromCookie = (data) => {
-    const allCookies = document.cookie.split(';');
+    const allCookies = document.cookie.split(";");
 
     const cookie = allCookies.filter((cookie) => {
       return cookie.indexOf(data) !== -1;
     });
 
-    return cookie.length >= 1 && cookie[0].trim().split('=')[1];
+    return cookie.length >= 1 && cookie[0].trim().split("=")[1];
   };
-  const adminToken = getDataFromCookie('_admin_token');
+  const adminToken = getDataFromCookie("_admin_token");
 
   const signIn = async (username, password) => {
     setLoading(true);
     const data = { username, password };
     try {
       const penRes = await fetch(`${uri}/admin/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -474,7 +474,7 @@ export const GlobalProvider = ({ children }) => {
           }; expires=${date.toUTCString()}`;
 
           // set admin tag in localstorage
-          localStorage.setItem('admin-tag', JSON.stringify(true));
+          localStorage.setItem("admin-tag", JSON.stringify(true));
           getSignedInAdmin(data.token);
           setErrorMessage(false);
         })
@@ -500,9 +500,9 @@ export const GlobalProvider = ({ children }) => {
     const data = { username, password, zone, socialHandle, adminAuth };
     try {
       const penRes = await fetch(`${uri}/admin/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -532,10 +532,10 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': token,
+          "Content-Type": "application/json",
+          "admin-token": token,
         },
       });
 
@@ -565,7 +565,7 @@ export const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     if (adminToken) getSignedInAdmin(adminToken);
-    else setErrorMessage('Not authenticated');
+    else setErrorMessage("Not authenticated");
     // eslint-disable-next-line
   }, []);
 
@@ -573,11 +573,11 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const pendingResponse = await fetch(`${uri}/admin/change-password`, {
-        method: 'PUT',
+        method: "PUT",
         body: JSON.stringify({ oldPassword, newPassword }),
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
       });
 
@@ -600,10 +600,10 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/songs/new`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
         body: JSON.stringify(song),
       });
@@ -633,10 +633,10 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/songs/update/${id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
         body: JSON.stringify(song),
       });
@@ -666,10 +666,10 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/songs/delete/${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
       });
 
@@ -698,10 +698,10 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/bios/new`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
         body: JSON.stringify(artist),
       });
@@ -731,10 +731,10 @@ export const GlobalProvider = ({ children }) => {
     setLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/bios/update`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
         body: JSON.stringify(artist),
       });
@@ -764,10 +764,10 @@ export const GlobalProvider = ({ children }) => {
     setParentLoading(true);
     try {
       const penRes = await fetch(`${uri}/admin/bios/delete/${name}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
-          'admin-token': adminToken,
+          "Content-Type": "application/json",
+          "admin-token": adminToken,
         },
       });
 
